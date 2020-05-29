@@ -229,6 +229,18 @@ namespace Concurso
                     Debug.WriteLine("Respuesta: Caravinieri");
                     result = MessageBox.Show("¿Cómo se conoce a la policía italiana?", "Pregunta", MessageBoxButton.YesNo);
                     break;
+                case 10:
+                    Debug.WriteLine("Respuesta: Tiburon ballena");
+                    result = MessageBox.Show("¿Cual es el tiburon más grande del mundo?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 11:
+                    Debug.WriteLine("Respuesta: Ben Franklin");
+                    result = MessageBox.Show("¿Quien invento los anteojos?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 12:
+                    Debug.WriteLine("Respuesta: Reina Isabel II");
+                    result = MessageBox.Show("¿Quien ha reinado gran bretaña por mas tiempo?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
                 case 99:
                     Debug.WriteLine("Respuesta: Once Upon a Time in Hollywood (Hollywood in Time a Upon Once) / Erase una vez en hollywood (hollywood en vez una erase)");
                     result = MessageBox.Show("¿Cómo se conoce a la policía italiana?", "Pregunta", MessageBoxButton.YesNo);
