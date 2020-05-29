@@ -6,30 +6,28 @@
         xmlns:local="clr-namespace:Concurso"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Window.Resources>
-        <Style x:Key="myLBStyle" TargetType="{x:Type ListBoxItem}">
-            <Style.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
-                             Color="Red"/>
-            </Style.Resources>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Label Content="Engatusados!" HorizontalAlignment="Left" Margin="359,10,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnGuango" Content="Carta guango travieso" HorizontalAlignment="Left" Margin="616,308,0,0" VerticalAlignment="Top" Width="153" Height="81" Click="btnGuango_Click"/>
         <Button x:Name="btnGoogle" Content="Carta google" HorizontalAlignment="Left" Margin="228,308,0,0" VerticalAlignment="Top" Width="153" Height="81" Click="btnGoogle_Click"/>
-        <Button x:Name="btnPregunta" Content="Pregunta" HorizontalAlignment="Left" Margin="33,308,0,0" VerticalAlignment="Top" Width="153" Height="81"/>
-        <Button x:Name="btnRueda" Content="Rueda del Caos" HorizontalAlignment="Left" Margin="429,308,0,0" VerticalAlignment="Top" Width="153" Height="81"/>
-        <Button Content="Orden" HorizontalAlignment="Left" Margin="22,22,0,0" VerticalAlignment="Top" Width="100" Height="37" Click="Button_Click"/>
-        <ListBox x:Name="ListOrden" HorizontalAlignment="Left" Height="100" Margin="22,81,0,0" VerticalAlignment="Top" Width="100" ItemContainerStyle="{StaticResource myLBStyle}">
+        <Button x:Name="btnPregunta" Content="Pregunta" HorizontalAlignment="Left" Margin="33,308,0,0" VerticalAlignment="Top" Width="153" Height="81" Click="Pregunta_Click"/>
+        <Button x:Name="btnRueda" Content="Rueda del Caos" HorizontalAlignment="Left" Margin="429,308,0,0" VerticalAlignment="Top" Width="153" Height="81" Click="RuedaCaos_Click"/>
+        <Button Content="Orden" HorizontalAlignment="Left" Margin="22,22,0,0" VerticalAlignment="Top" Width="193" Height="37" Click="Orden_Click"/>
+        <ListBox x:Name="ListOrden" ItemsSource="{Binding Participantes}" HorizontalAlignment="Left" Height="100" Margin="22,81,0,0" VerticalAlignment="Top" Width="193" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding}"/>
-                    </StackPanel>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat=" {0} - {1} ({2})">
+                                <Binding Path="Nombre"/>
+                                <Binding Path="Puntos"/>
+                                <Binding Path="Bonificador"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Siguiente" HorizontalAlignment="Left" Margin="22,195,0,0" VerticalAlignment="Top" Width="100" Height="47" Click="Button_Click_1"/>
+        <Button Content="Siguiente" HorizontalAlignment="Left" Margin="22,195,0,0" VerticalAlignment="Top" Width="193" Height="47" Click="NextTurn_Click"/>
     </Grid>
 </Window>
