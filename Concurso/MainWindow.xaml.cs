@@ -4,7 +4,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows;
+using System.Windows.Input;
 using YoutubeExtractor;
 
 namespace Concurso
@@ -14,7 +16,7 @@ namespace Concurso
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private List<int> Preguntas = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 99 };
+        private List<int> Preguntas = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 99 };
         private ObservableCollection<Participante> _participantes = new ObservableCollection<Participante>();
         public ObservableCollection<Participante> Participantes
         {
@@ -52,8 +54,19 @@ namespace Concurso
             InitializeComponent();
             DataContext = this;
 
+            ListOrden.MouseDoubleClick += new MouseButtonEventHandler(ListBox1_MouseDoubleClick);
+
             Turno = 0;
             Ronda = 0;
+        }
+
+        private void ListBox1_MouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            if (ListOrden.SelectedItem != null)
+            {
+                ((Participante)ListOrden.SelectedItem).Puntos = Convert.ToInt32(txtPuntos.Text);
+            }
+
         }
 
         private void Orden_Click(object sender, RoutedEventArgs e)
@@ -129,51 +142,6 @@ namespace Concurso
                 MessageBox.Show("Parece que vas más bajo por que tu bonificador está en " + Participantes[getPart(Seleccionado).Orden].Bonificador);
         }
 
-        private void reproducir()
-        {
-            string link = "https://www.youtube.com/watch?v=XOPrrTRvOh4";
-
-            /*
-             * Get the available video formats.
-             * We'll work with them in the video and audio download examples.
-             */
-            IEnumerable<VideoInfo> videoInfos = DownloadUrlResolver.GetDownloadUrls(link);
-            /*
-                * We want the first extractable video with the highest audio quality.
-            */
-            VideoInfo video = videoInfos
-                .Where(info => info.CanExtractAudio)
-                .OrderByDescending(info => info.AudioBitrate)
-                .First();
-
-            /*
-             * If the video has a decrypted signature, decipher it
-             */
-            if (video.RequiresDecryption)
-            {
-                DownloadUrlResolver.DecryptDownloadUrl(video);
-            }
-
-            /*
-             * Create the audio downloader.
-             * The first argument is the video where the audio should be extracted from.
-             * The second argument is the path to save the audio file.
-             */
-            var audioDownloader = new AudioDownloader(video, System.IO.Path.Combine("D:/Downloads", video.Title + video.AudioExtension));
-
-            // Register the progress events. We treat the download progress as 85% of the progress and the extraction progress only as 15% of the progress,
-            // because the download will take much longer than the audio extraction.
-            audioDownloader.DownloadProgressChanged += (tmpsender, args) => Console.WriteLine(args.ProgressPercentage * 0.85);
-            audioDownloader.AudioExtractionProgressChanged += (tmpsender, args) => Console.WriteLine(85 + args.ProgressPercentage * 0.15);
-
-            /*
-             * Execute the audio downloader.
-             * For GUI applications note, that this method runs synchronously.
-             */
-            audioDownloader.Execute();
-        }
-
-
         private void Pregunta_Click(object sender, RoutedEventArgs e)
         {
             if (AyudaPregunta)
@@ -241,9 +209,122 @@ namespace Concurso
                     Debug.WriteLine("Respuesta: Reina Isabel II");
                     result = MessageBox.Show("¿Quien ha reinado gran bretaña por mas tiempo?", "Pregunta", MessageBoxButton.YesNo);
                     break;
+                case 13:
+                    Debug.WriteLine("Respuesta: Así es como se les llama a las personas originarias de Río de Janeiro, en Brasil");
+                    result = MessageBox.Show("¿A qué personas se las conoce como cariocas?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 14:
+                    Debug.WriteLine("Respuesta: El edificio Burj Khalifa, situado en Dubai, es el edificio más alto del mundo con 828 metros");
+                    result = MessageBox.Show("¿Cuál es el edificio más alto del mundo?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 15:
+                    Debug.WriteLine("Respuesta: Japón fue el país sobre el que cayó la primera bomba atómica. Fue durante la Segunda Guerra Mundial y el impacto se produjo sobre la ciudad de Hiroshima");
+                    result = MessageBox.Show("¿En qué país se utilizó la primera bomba atómica en un contexto de combate?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 16:
+                    Debug.WriteLine("Respuesta: El nombre que recibe la agencia de inteligencia inglesa es MI5");
+                    result = MessageBox.Show("¿Cómo se llama la agencia de inteligencia británica?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 17:
+                    Debug.WriteLine("Respuesta: Esta energía es conocida como energía nuclear");
+                    result = MessageBox.Show("¿Qué nombre recibe la energía que contiene el núcleo de los átomos?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 18:
+                    Debug.WriteLine("Respuesta: El Concorde es un modelo de avión supersónico, que hasta su retirada en 2003 fue el avión de pasajeros comercial más rápido del mundo");
+                    result = MessageBox.Show("¿Qué era el Concorde?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 19:
+                    Debug.WriteLine("Respuesta: El desierto de Lut, en Irán, es donde se ha detectado la temperatura más alta jamás registrada en la Tierra. En una zona del desierto conocida como Gandom Beryan se llegó a los 70,7 grados centígrados");
+                    result = MessageBox.Show("¿Cuál es el lugar más caluroso del planeta?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 20:
+                    Debug.WriteLine("Respuesta: El gusto es uno de nuestros cinco sentidos. Los sabores primarios son dulce, amargo, ácido, salado y umami");
+                    result = MessageBox.Show("¿Cuáles son los cinco tipos de sabores primarios?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 21:
+                    Debug.WriteLine("Respuesta: El padre del psicoanálisis es Sigmund Freud");
+                    result = MessageBox.Show("¿Quién es el padre del psicoanálisis?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 22:
+                    Debug.WriteLine("Respuesta: En Guatemala, el producto que más se cultiva es el café");
+                    result = MessageBox.Show("¿Qué producto cultiva más Guatemala?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 23:
+                    Debug.WriteLine("Respuesta: El ahora jugador del Manchester United es sueco");
+                    result = MessageBox.Show("¿De qué país es el futbolista Zlatan Ibrahimović?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 24:
+                    Debug.WriteLine("Respuesta: La estación espacial rusa recibe el nombre de Mir");
+                    result = MessageBox.Show("¿Cómo se llama la estación espacial rusa?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 25:
+                    Debug.WriteLine("Respuesta: El murciélago es un mamífero que tiene la capacidad de volar");
+                    result = MessageBox.Show("¿Cuál es el único mamífero capaz de volar?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 26:
+                    Debug.WriteLine("Respuesta: Las monoinsaturadas son grasas insaturadas que se encuentran en el aceite de oliva");
+                    result = MessageBox.Show("¿Qué grasas hacen tan saludable el aceite de oliva?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 27:
+                    Debug.WriteLine("Respuesta: Este famosos tema es del cantante Eric Clapton");
+                    result = MessageBox.Show("¿Qué veterano músico es la canción \"Tears in Heaven\"?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 28:
+                    Debug.WriteLine("Respuesta: Esta fecha emblemática es el 6 de enero");
+                    result = MessageBox.Show("¿Qué día celebran los cristianos la festividad de la Epifanía?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 29:
+                    Debug.WriteLine("Respuesta: Aunque algunos piensen que es el oro o el platino, en realidad es el rodio");
+                    result = MessageBox.Show("¿Cuál es el metal más caro del mundo?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 30:
+                    Debug.WriteLine("Respuesta: La frase se atribuye a Sócrates, pero fue Platón quien la recogió por primera vez, pues su autor no dejó testimonio escrito");
+                    result = MessageBox.Show("¿Quién “sabía que no sabía nada?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 31:
+                    Debug.WriteLine("Respuesta: António Guterres es el secretario general de la ONU en sustitución de Ban Ki Moon");
+                    result = MessageBox.Show("¿Quién es el secretario general de la Organización de Naciones Unidas (ONU)?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 32:
+                    Debug.WriteLine("Respuesta: En dos regiones muy alejadas de África y del cercano oriente: Indonesia y la India");
+                    result = MessageBox.Show("¿Cuáles son los dos países con mayor cantidad de musulmanes?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 33:
+                    Debug.WriteLine("Respuesta: António Guterres es el secretario general de la ONU en sustitución de Ban Ki Moon");
+                    result = MessageBox.Show("¿Quién es el secretario general de la Organización de Naciones Unidas (ONU)?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 34:
+                    Debug.WriteLine("Respuesta: En el año 1981 apareció la máquina recreativa llamada Donkey Kong, protagonizada por Jumpman, el personaje que poco después, en el año 1985, sería conocido como Mario en el videojuego Super Mario Bros");
+                    result = MessageBox.Show("¿En qué año apareció en el mercado el primer videojuego protagonizado por Super Mario?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 35:
+                    Debug.WriteLine("Respuesta: Varias especies de cuervo se caracterizan por hablar mejor que los loros");
+                    result = MessageBox.Show("¿Cuál es el animal que tiene mayor facilidad para repetir las frases y palabras que escucha?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 36:
+                    Debug.WriteLine("Respuesta: Se cree que es el vasco, hablado en una parte de España y de Francia. Dado que es el único idioma de Europa que no tiene una clara relación con ningún otro, los expertos estiman que su origen es anterior incluso al de los pueblos íberos y celtas");
+                    result = MessageBox.Show("¿Cuál es el idioma más antiguo de los que sobreviven en Europa?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 37:
+                    Debug.WriteLine("Respuesta: Aunque no lo parezca, ese lugar es Australia, lugar en el que estos animales fueron introducidos por el ser humano");
+                    result = MessageBox.Show("¿Cuál es el país con más camellos salvajes?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 38:
+                    Debug.WriteLine("Respuesta: la medusa Turritopsis nutricula no muere a no ser que la maten o sufra un accidente");
+                    result = MessageBox.Show("Existen animales inmortales, ¿Cual?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 39:
+                    Debug.WriteLine("Respuesta: La piel es el órgano más grande de nuestro cuerpo");
+                    result = MessageBox.Show("¿Cuál es el órgano más grande del cuerpo humano?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+                case 40:
+                    Debug.WriteLine("Respuesta: Miguel Marcos");
+                    result = MessageBox.Show("¿Quien es el marido de Belen Esteban?", "Pregunta", MessageBoxButton.YesNo);
+                    break;
+
                 case 99:
                     Debug.WriteLine("Respuesta: Once Upon a Time in Hollywood (Hollywood in Time a Upon Once) / Erase una vez en hollywood (hollywood en vez una erase)");
-                    result = MessageBox.Show("¿Cómo se conoce a la policía italiana?", "Pregunta", MessageBoxButton.YesNo);
+                    result = MessageBox.Show("¿Cual es la ultima pelicula de Quentin tarantino protagonizada por Brad Pitt y Leonardo DiCaprio?", "Pregunta", MessageBoxButton.YesNo);
                     break;
                 default:
                     result = MessageBoxResult.No;
@@ -297,7 +378,7 @@ namespace Concurso
                 AyudaRuedaCaos = false;
             }
 
-            int RuedaNum = rnd.Next(10);
+            int RuedaNum = rnd.Next(6);
 
             switch (RuedaNum)
             {
@@ -305,7 +386,7 @@ namespace Concurso
                     MessageBox.Show("Habeis ganado un \"Pase de Ángel\", os da otro turno cuando falleis");
                     break;
                 case 1:
-                    MessageBox.Show("Habeis ganado un \"Basauritarra\", os da la opcion de robarle el turno a otro participante");
+                    MessageBox.Show("Habeis ganado un \"Basauritarra\", os da la opcion de robarle los puntos a otro participante");
                     break;
                 case 2:
                     MessageBox.Show("Habeis ganado un \"Kebab mañanero de domingo\", perdeis el próximo turno por ir en barco");
@@ -317,19 +398,7 @@ namespace Concurso
                     MessageBox.Show("Habeis ganado un \"Jefe navarro\", la próxima ronda obtienes doble turno. Y pagandoles la mitad de sueldo a tus trabajadores!");
                     break;
                 case 5:
-                    MessageBox.Show("Respuesta: El Cairo (casi 20 millones de habitantes)");
-                    break;
-                case 6:
-                    MessageBox.Show("Respuesta: Tirana");
-                    break;
-                case 7:
-                    MessageBox.Show("Respuesta: Clint Eastwood");
-                    break;
-                case 8:
-                    MessageBox.Show("Respuesta: Hendaya");
-                    break;
-                case 9:
-                    MessageBox.Show("Respuesta: Caravinieri");
+                    MessageBox.Show("Habeis ganado un \"Alcalde de Etxebarri\", os da la opcion de robarle el turno a otro participante haciendo ");
                     break;
                 default:
                     MessageBox.Show("Errorcito de uga!! Se ha ganado una cerveza!");
@@ -366,24 +435,45 @@ namespace Concurso
         {
             Ronda = Convert.ToInt32((Turno++) / 4) + 1;
             MessageBox.Show("Ronda " + Ronda + ": Turno de " + Seleccionado);
+            Debug.WriteLine(Ronda);
+            if (rnd.Next(101) < Ronda)
+                MessageBox.Show("Felicidades gente, por que ....." + Seleccionado + " han sido engatusados!");
 
             CalcularBonificador();
 
-            switch (rnd.Next(3))
+            switch (rnd.Next(6))
             {
                 case 0:
+                    btnPregunta.IsEnabled = Preguntas.Count > 0;
+                    btnGoogle.IsEnabled = true;
+                    btnRueda.IsEnabled = false;
+                    btnGuango.IsEnabled = false;
+                    break;
+                case 1:
+                    btnPregunta.IsEnabled = Preguntas.Count > 0;
+                    btnGoogle.IsEnabled = false;
+                    btnRueda.IsEnabled = true;
+                    btnGuango.IsEnabled = false;
+                    break;
+                case 2:
                     btnPregunta.IsEnabled = Preguntas.Count > 0;
                     btnGoogle.IsEnabled = false;
                     btnRueda.IsEnabled = false;
                     btnGuango.IsEnabled = true;
                     break;
-                case 1:
+                case 3:
+                    btnPregunta.IsEnabled = false;
+                    btnGoogle.IsEnabled = true;
+                    btnRueda.IsEnabled = true;
+                    btnGuango.IsEnabled = false;
+                    break;
+                case 4:
                     btnPregunta.IsEnabled = false;
                     btnGoogle.IsEnabled = true;
                     btnRueda.IsEnabled = false;
                     btnGuango.IsEnabled = true;
                     break;
-                case 2:
+                case 5:
                     btnPregunta.IsEnabled = false;
                     btnGoogle.IsEnabled = false;
                     btnRueda.IsEnabled = true;

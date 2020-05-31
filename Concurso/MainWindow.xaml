@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Label Content="Engatusados!" HorizontalAlignment="Left" Margin="359,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Engatusados!" HorizontalAlignment="Left" Margin="324,112,0,0" VerticalAlignment="Top" FontSize="72" Foreground="#FF5DDE13"/>
         <Button x:Name="btnGuango" Content="Carta guango travieso" HorizontalAlignment="Left" Margin="616,308,0,0" VerticalAlignment="Top" Width="153" Height="81" Click="btnGuango_Click"/>
         <Button x:Name="btnGoogle" Content="Carta google" HorizontalAlignment="Left" Margin="228,308,0,0" VerticalAlignment="Top" Width="153" Height="81" Click="btnGoogle_Click"/>
         <Button x:Name="btnPregunta" Content="Pregunta" HorizontalAlignment="Left" Margin="33,308,0,0" VerticalAlignment="Top" Width="153" Height="81" Click="Pregunta_Click"/>
@@ -29,5 +29,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button Content="Siguiente" HorizontalAlignment="Left" Margin="22,195,0,0" VerticalAlignment="Top" Width="193" Height="47" Click="NextTurn_Click"/>
+        <TextBox x:Name="txtPuntos" HorizontalAlignment="Left" Height="23" Margin="228,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61"/>
     </Grid>
 </Window>

@@ -1,0 +1,14 @@
+﻿<Window x:Class="Concurso.Imagenes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Concurso"
+        mc:Ignorable="d"
+        Title="Imagenes" Height="124.18" Width="448.361">
+    <Grid>
+        <Button x:Name="btnOk" Content="Aceptar" HorizontalAlignment="Left" Margin="41,59,0,0" VerticalAlignment="Top" Width="150" Click="btnOK_Click"/>
+        <Button x:Name="btnNoOK" Content="Incorrecto" HorizontalAlignment="Left" Margin="259,59,0,0" VerticalAlignment="Top" Width="150" Click="btnCancel_Click"/>
+        <TextBox x:Name="txtPuntos" HorizontalAlignment="Left" Height="23" Margin="65,20,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
+    </Grid>
+</Window>
